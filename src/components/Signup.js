@@ -11,6 +11,12 @@ const Signup = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // Dynamic base URL depending on local or deployed environment
+  const API_BASE_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:5000"
+      : "https://careconnect-backend.onrender.com";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -20,7 +26,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post("https://careconnect-backend.onrender.com/api/auth/signup",{
+      const response = await axios.post(`${API_BASE_URL}/api/auth/signup`, {
         name,
         email,
         password,
@@ -77,7 +83,7 @@ const Signup = () => {
               <label>
                 <input
                   type="radio"
-                  value="teacher" // Use "teacher" instead of "educator"
+                  value="teacher"
                   checked={role === "teacher"}
                   onChange={(e) => setRole(e.target.value)}
                 />

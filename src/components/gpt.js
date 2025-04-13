@@ -29,14 +29,18 @@ const Gpt = () => {
     if (!userInput.trim()) return;
 
     const input = userInput;
-    setChatHistory((prev) => [...prev, { user: input, bot: "...", mood: selectedEmotion || "neutral" }]);
+    setChatHistory((prev) => [
+      ...prev,
+      { user: input, bot: "...", mood: selectedEmotion || "neutral" },
+    ]);
     setUserInput("");
     setLoading(true);
 
     try {
-      const response = await axios.post("https://careconnect-backend.onrender.com/chat", {
-        message: input,
-      });
+      const response = await axios.post(
+        import.meta.env.VITE_BACKEND_URL || "https://careconnect-backend.onrender.com/chat",
+        { message: input }
+      );
 
       setChatHistory((prev) => [
         ...prev.slice(0, -1),
@@ -71,9 +75,11 @@ const Gpt = () => {
   };
 
   const startVoiceRecognition = () => {
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    const recognition = new (window.SpeechRecognition ||
+      window.webkitSpeechRecognition)();
     recognition.onstart = () => console.log("Voice recognition started...");
-    recognition.onresult = (event) => setUserInput(event.results[0][0].transcript);
+    recognition.onresult = (event) =>
+      setUserInput(event.results[0][0].transcript);
     recognition.start();
   };
 
@@ -104,7 +110,12 @@ const Gpt = () => {
               <strong>You:</strong> {chat.user}
               <br />
               <strong>Bot:</strong> {chat.bot}
-              <button onClick={() => handleSpeech(chat.bot)} className="speech-btn">🗣️</button>
+              <button
+                onClick={() => handleSpeech(chat.bot)}
+                className="speech-btn"
+              >
+                🗣️
+              </button>
             </div>
           ))}
           {loading && <div className="loading">Bot is thinking...</div>}
@@ -119,9 +130,17 @@ const Gpt = () => {
               placeholder="Ask a question..."
               className="gpt-input"
             />
-            <button type="button" onClick={startVoiceRecognition} className="mic-btn">🎤</button>
+            <button
+              type="button"
+              onClick={startVoiceRecognition}
+              className="mic-btn"
+            >
+              🎤
+            </button>
           </div>
-          <button type="submit" className="gpt-submit-btn">Send</button>
+          <button type="submit" className="gpt-submit-btn">
+            Send
+          </button>
         </form>
       </div>
 

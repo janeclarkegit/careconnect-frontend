@@ -9,11 +9,17 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // Automatically switch between localhost and deployed backend
+  const API_BASE_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:5000"
+      : "https://careconnect-backend.onrender.com";
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("https://careconnect-backend.onrender.com/api/auth/login", {
+      const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
         email,
         password,
       });
@@ -25,7 +31,7 @@ const Login = () => {
 
       navigate("/resources");
     } catch (err) {
-      console.error("Login failed:", err);
+      console.error("Login failed:", err.response?.data || err.message);
       setError("Invalid login credentials.");
     }
   };
