@@ -20,7 +20,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3001/api/auth/signup", {
+      const response = await axios.post("https://careconnect-backend.onrender.com/api/auth/signup",{
         name,
         email,
         password,

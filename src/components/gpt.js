@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
-import "./gpt.css"; 
+import "./gpt.css";
 
 const Gpt = () => {
   const [userInput, setUserInput] = useState("");
@@ -9,7 +9,6 @@ const Gpt = () => {
   const [loading, setLoading] = useState(false);
   const [selectedEmotion, setSelectedEmotion] = useState(null);
 
-  // Motivational quotes for different emotions
   const motivationalQuotes = {
     happy: "✨ Believe you can and you're halfway there. ✨",
     neutral: "💡 The only way to do great work is to love what you do. 💡",
@@ -20,31 +19,42 @@ const Gpt = () => {
   const handleUserInput = (e) => setUserInput(e.target.value);
 
   const getRandomQuote = () => {
-    return selectedEmotion ? motivationalQuotes[selectedEmotion] : "🌍 Select an emotion for a special quote!";
+    return selectedEmotion
+      ? motivationalQuotes[selectedEmotion]
+      : "🌍 Select an emotion for a special quote!";
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!userInput.trim()) return;
 
-    setChatHistory((prev) => [...prev, { user: userInput, bot: "...", mood: selectedEmotion || "neutral" }]);
+    const input = userInput;
+    setChatHistory((prev) => [...prev, { user: input, bot: "...", mood: selectedEmotion || "neutral" }]);
     setUserInput("");
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:3001/chat", {
-        message: userInput,
+      const response = await axios.post("https://careconnect-backend.onrender.com/chat", {
+        message: input,
       });
 
       setChatHistory((prev) => [
         ...prev.slice(0, -1),
-        { user: userInput, bot: response.data.botMessage, mood: selectedEmotion || "neutral" },
+        {
+          user: input,
+          bot: response.data.botMessage || "🤖 Sorry, I didn't understand that.",
+          mood: selectedEmotion || "neutral",
+        },
       ]);
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
       setChatHistory((prev) => [
-        ...prev,
-        { user: userInput, bot: "Error: Unable to fetch response.", mood: selectedEmotion || "neutral" },
+        ...prev.slice(0, -1),
+        {
+          user: input,
+          bot: "⚠️ Error: Unable to fetch response.",
+          mood: selectedEmotion || "neutral",
+        },
       ]);
     } finally {
       setLoading(false);
@@ -115,7 +125,6 @@ const Gpt = () => {
         </form>
       </div>
 
-      {/* Footer */}
       <footer className="home-footer">
         <p>&copy; 2025 CareConnect. All rights reserved.</p>
       </footer>
