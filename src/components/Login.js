@@ -29,8 +29,8 @@ const Login = () => {
       localStorage.setItem("name", name);
       localStorage.setItem("role", role);
 
-      // 🔁 Redirect to home page instead of /resources
-      navigate("/");
+      
+      navigate("/home");
     } catch (err) {
       console.error("Login failed:", err.response?.data || err.message);
       setError("Invalid login credentials.");
