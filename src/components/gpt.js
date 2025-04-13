@@ -37,10 +37,14 @@ const Gpt = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        import.meta.env.VITE_BACKEND_URL || "https://careconnect-backend.onrender.com/chat",
-        { message: input }
-      );
+      const baseURL =
+        window.location.hostname === "localhost"
+          ? "http://localhost:5000"
+          : "https://careconnect-backend-k0t4.onrender.com";
+
+      const response = await axios.post(`${baseURL}/chat`, {
+        message: input,
+      });
 
       setChatHistory((prev) => [
         ...prev.slice(0, -1),
