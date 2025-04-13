@@ -1,0 +1,151 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Layout */
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #34495e;
+  color: white;
+  padding: 15px 30px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Footer */
+.home-footer {
+  background-color: #34495e;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  width: 100%;
+}
+
+.home-footer p {
+  margin: 0;
+}
+
+/* Journal Container */
+.journal-container {
+  padding: 50px 30px;
+  max-width: 900px;
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+h2 {
+  text-align: center;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #34495e;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Journal Form */
+.journal-form {
+  background-color: #ecf0f1;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.journal-form h3 {
+  text-align: center;
+  font-size: 1.9rem;
+  color: #2980b9;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #bdc3c7;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 1.1rem;
+  color: #34495e;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #3498db;
+}
+
+.form-group textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+/* Button Styles */
+.submit-btn,
+.reset-btn,
+.delete-btn {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.submit-btn:hover,
+.reset-btn:hover,
+.delete-btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  margin-top: 10px;
+}
