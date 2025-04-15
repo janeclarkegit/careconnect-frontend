@@ -1,32 +1,30 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
-import Navbar from "./Navbar"; // Import the Navbar component
-import "./Home.css"; // Import your custom styles
-import YoungCarersImage from "./Young Carers.png"; // Import the image
+import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
+import "./Home.css";
+import YoungCarersImage from "./Young Carers.png";
 
 const Home = () => {
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
-  // Function to navigate to the journal page
   const goToJournal = () => {
-    navigate("/journal");  // Adjust path according to your routing setup
+    navigate("/journal");
   };
 
-  // Function to navigate to the appropriate action for signed-in users
   const goToNextPage = () => {
-    navigate("/journal"); // Assume that the next page for signed-in users is the journal
+    navigate("/journal");
   };
 
   return (
     <div>
-      <Navbar />  {/* Include the reusable Navbar */}
-      <div className="body-content"> {/* Prevent content overlap with navbar */}
+      <Navbar />
+      <div className="body-content">
         <div className="home-container">
 
           {/* Hero Section */}
           <div className="home-hero">
             <h1>Welcome to CareConnect</h1>
-            <p>Your trusted support platform for young carers.</p>
+            <p>Your digital space for practical tools and emotional support.</p>
             <button className="cta-button" onClick={goToJournal}>Get Started</button>
           </div>
 
@@ -36,10 +34,10 @@ const Home = () => {
             <div className="home-about-content">
               <div className="about-text">
                 <p>
-                  CareConnect is designed to provide young carers with the resources, support, and tools they need to thrive. Whether you're managing school, personal life, or caregiving responsibilities, we're here to help.
+                  CareConnect is designed to support young carers and educators by offering helpful resources, emotional well-being tools, and easy access to local services. Whether you're managing studies, caregiving duties, or need a moment to reflect — CareConnect is here to help.
                 </p>
                 <p>
-                  Our platform connects young carers, provides a wealth of useful resources, and offers a safe space to share experiences and advice.
+                  The platform features personalised tools depending on your role, including a motivational chatbot, emotional journal, and localised events based on your area in the UK.
                 </p>
               </div>
               <div className="about-image">
@@ -54,48 +52,52 @@ const Home = () => {
             <div className="how-it-works-content">
               <div className="how-it-works-step">
                 <h3>1. Sign Up</h3>
-                <p>Create a personal account and join the CareConnect community.</p>
+                <p>Create an account and select your role — young carer or educator.</p>
               </div>
               <div className="how-it-works-step">
-                <h3>2. Connect with Others</h3>
-                <p>Engage with other young carers, share stories, and find support.</p>
+                <h3>2. Explore Resources</h3>
+                <p>Access tailored information, tools, and local services relevant to your needs and region.</p>
               </div>
               <div className="how-it-works-step">
-                <h3>3. Access Resources</h3>
-                <p>Get exclusive access to helpful guides, webinars, and workshops designed to support you.</p>
+                <h3>3. Get Support</h3>
+                <p>Use the motivational chatbot, reflect in your private journal, and discover what's available near you.</p>
               </div>
             </div>
           </section>
 
           {/* Features Section */}
           <section className="home-features">
-            <h2>Our Key Features</h2>
+            <h2>Key Features</h2>
             <div className="feature-cards">
               <div className="feature-card">
-                <h4>Support Network</h4>
-                <p>Connect with a community of young carers to share experiences and support each other.</p>
+                <h4>Role-Specific Resources</h4>
+                <p>Access curated content and guidance depending on whether you're a carer or an educator.</p>
               </div>
               <div className="feature-card">
-                <h4>Resource Library</h4>
-                <p>Access a wide range of resources to help manage caregiving responsibilities and maintain mental well-being.</p>
+                <h4>Motivational Chatbot</h4>
+                <p>Get friendly, AI-powered encouragement and advice based on what you're feeling.</p>
               </div>
               <div className="feature-card">
-                <h4>Events & Workshops</h4>
-                <p>Stay updated on upcoming events and workshops focused on young carers' personal and professional growth.</p>
+                <h4>Journal Space</h4>
+                <p>Privately track your emotions and reflect on your day with our easy-to-use journal feature.</p>
+              </div>
+              <div className="feature-card">
+                <h4>Local Events</h4>
+                <p>Find support groups, free meals, or school events in your area using postcode-based search.</p>
               </div>
             </div>
           </section>
 
           {/* Call to Action Section */}
           <section className="home-cta">
-            <h2>Join the CareConnect Community</h2>
-            <p>Start your journey with CareConnect today and gain access to the support and resources you deserve.</p>
-            <button className="cta-button" onClick={goToNextPage}>Go to Journal</button>
+            <h2>Ready to explore?</h2>
+            <p>CareConnect is here to make things a little easier. Log in to get started on your journey.</p>
+            <button className="cta-button" onClick={goToNextPage}>Open My Journal</button>
           </section>
 
           {/* Footer Section */}
           <footer className="home-footer">
-            <p>&copy; 2025 CareConnect. All rights reserved.</p>
+            <p>&copy; 2025 CareConnect. Built for young carers and educators across the UK.</p>
           </footer>
 
         </div>
