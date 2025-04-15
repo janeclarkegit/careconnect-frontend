@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // ✅ Link added here
 import "./Login.css";
 
 const Login = () => {
@@ -29,7 +29,6 @@ const Login = () => {
       localStorage.setItem("name", name);
       localStorage.setItem("role", role);
 
-      
       navigate("/home");
     } catch (err) {
       console.error("Login failed:", err.response?.data || err.message);
@@ -42,7 +41,9 @@ const Login = () => {
       <div className="login-container">
         <div className="login-box">
           <h2 className="welcome-text">Welcome Back to CareConnect</h2>
-          <p className="tagline">Login to your account to access resources and support</p>
+          <p className="tagline">
+            Login to your account to access resources and support
+          </p>
 
           {error && <div className="alert-danger">{error}</div>}
 
@@ -67,7 +68,8 @@ const Login = () => {
           </form>
 
           <p className="signup-link">
-            Don't have an account? <a href="/signup">Sign up here</a>
+            Don't have an account?{" "}
+            <Link to="/signup">Sign up here</Link> {/* ✅ Fixed */}
           </p>
         </div>
       </div>
