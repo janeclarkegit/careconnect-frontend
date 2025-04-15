@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // ✅ Link added here
 import "./Signup.css";
 
 const Signup = () => {
@@ -11,7 +11,6 @@ const Signup = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Dynamic base URL depending on local or deployed environment
   const API_BASE_URL =
     window.location.hostname === "localhost"
       ? "http://localhost:5000"
@@ -92,6 +91,12 @@ const Signup = () => {
             </div>
             <button type="submit">Sign Up</button>
           </form>
+
+          {/* ✅ Added login link here */}
+          <p className="login-link">
+            Already have an account?{" "}
+            <Link to="/login">Log in here</Link>
+          </p>
         </div>
       </div>
     </div>
