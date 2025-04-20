@@ -6,18 +6,19 @@ import Navbar from './Navbar';
 import './events.css';
 
 const Events = () => {
-  const [location, setLocation] = useState({ lat: 51.5074, lng: -0.1278 }); // Default to London
+  // Default location set to London (useful fallback if geolocation fails)
+  const [location, setLocation] = useState({ lat: 51.5074, lng: -0.1278 }); 
   const [events, setEvents] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Custom map icon
+  // Custom icon for event markers – a simple map pin to help users visually identify events
   const customIcon = new L.Icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
     iconSize: [32, 32],
   });
 
-  // Component to update map center
+  // This component allows the map to re-center smoothly when a new location is selected
   const UpdateMapCenter = ({ center }) => {
     const map = useMap();
     useEffect(() => {
@@ -26,7 +27,7 @@ const Events = () => {
     return null;
   };
 
-  // Fetch events based on location
+  // This mock data simulates real events — helpful for testing and visualising functionality
   const fetchEvents = (lat, lng) => {
     const eventData = [
       {
@@ -54,11 +55,10 @@ const Events = () => {
         time: 'Thursday, 1:00 PM',
       },
     ];
-
     setEvents(eventData);
   };
 
-  // Search and update map location
+  // This fetches coordinates based on the user's text input (using Nominatim API)
   const searchLocation = async () => {
     try {
       const response = await fetch(
@@ -66,38 +66,56 @@ const Events = () => {
       );
       const data = await response.json();
       if (data.length > 0) {
-        const { lat, lon } = data[0];
-        setLocation({ lat: parseFloat(lat), lng: parseFloat(lon) });
-        fetchEvents(parseFloat(lat), parseFloat(lon));
+        // Convert to float and update the map
+        const lat = parseFloat(data[0].lat);
+        const lng = parseFloat(data[0].lon);
+        const newCoords = { lat, lng };
+        setLocation(newCoords);
+        fetchEvents(lat, lng); // Load events near the searched area
       } else {
-        alert('Location not found');
+        alert('Location not found. Please try a different search.');
       }
     } catch (error) {
       console.error('Error searching location:', error);
+      alert('There was a problem searching for that location.');
     }
   };
 
-  // Get user location on page load
+  // Use browser geolocation to find the user's current location on first load
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        setUserLocation({ lat: latitude, lng: longitude });
-        setLocation({ lat: latitude, lng: longitude });
-        fetchEvents(latitude, longitude);
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const newLocation = { lat: latitude, lng: longitude };
+          setUserLocation(newLocation);
+          setLocation(newLocation);
+          fetchEvents(latitude, longitude); // Load relevant events automatically
+        },
+        (error) => {
+          // If user denies location or it fails, default to London with mock events
+          console.error('Geolocation error:', error.message);
+          fetchEvents(location.lat, location.lng); 
+        }
+      );
+    } else {
+      // Backup plan if browser doesn’t support geolocation
+      console.warn('Geolocation not supported.');
+      fetchEvents(location.lat, location.lng); 
     }
   }, []);
 
   return (
     <div className="events-page">
-      {/* Navbar wrapped in a container div */}
+      {/* Persistent navbar */}
       <div className="navbar-container">
         <Navbar />
       </div>
-      
+
       <div className="content-wrapper">
         <h1>Upcoming Events Near You</h1>
+
+        {/* Search input and button to let users type in a town or city */}
         <div className="search-bar">
           <input
             type="text"
@@ -108,6 +126,7 @@ const Events = () => {
           <button onClick={searchLocation}>Search</button>
         </div>
 
+        {/* Interactive Leaflet map with markers for each event */}
         <MapContainer center={location} zoom={13} style={{ height: '500px', width: '100%' }}>
           <UpdateMapCenter center={location} />
           <TileLayer
@@ -125,6 +144,7 @@ const Events = () => {
           ))}
         </MapContainer>
 
+        {/* A simple card layout listing all nearby events */}
         <h2>Event Listings</h2>
         <div className="events-container">
           {events.map((event) => (
@@ -137,7 +157,7 @@ const Events = () => {
         </div>
       </div>
 
-      {/* Footer wrapped in a container div */}
+      {/* Simple footer to match the rest of the app */}
       <div className="footer-container">
         <footer className="home-footer">
           <p>&copy; 2025 CareConnect. All rights reserved.</p>

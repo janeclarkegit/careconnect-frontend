@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import "./game.css";
 
+// 🧠 This quiz data is separated by user role (young carer vs educator) to ensure relevance.
+// Each set includes questions, options, and the correct answer.
 const quizData = {
   carer: [
     {
@@ -70,6 +72,7 @@ const quizData = {
 };
 
 const QuizGame = () => {
+  // Role is pulled from local storage — this means carers and teachers see different questions.
   const [role, setRole] = useState("carer");
   const [questionIndex, setQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -81,6 +84,7 @@ const QuizGame = () => {
     setRole(storedRole);
   }, []);
 
+  //  Handle when a user selects an answer
   const handleAnswerClick = (option) => {
     const currentQuestion = quizData[role][questionIndex];
     if (option === currentQuestion.answer) {
@@ -91,6 +95,7 @@ const QuizGame = () => {
     }
   };
 
+  // ⏭ Proceed to next question or show the final score
   const handleNextQuestion = () => {
     setFeedback("");
     if (questionIndex + 1 < quizData[role].length) {
@@ -100,6 +105,7 @@ const QuizGame = () => {
     }
   };
 
+  //  Restart the quiz from the beginning
   const restartQuiz = () => {
     setQuestionIndex(0);
     setScore(0);
@@ -108,11 +114,14 @@ const QuizGame = () => {
 
   return (
     <div className="quiz-game">
+      {/* Navbar for consistent navigation */}
       <div className="navbar-wrapper">
         <Navbar />
       </div>
+
       <div className="quiz-container">
         <h1>Educational Quiz for {role === "carer" ? "Young Carers" : "Educators"}</h1>
+
         {showScore ? (
           <div className="score-section">
             <h2>Your Score: {score}/{quizData[role].length}</h2>
@@ -123,6 +132,7 @@ const QuizGame = () => {
           <div className="question-section">
             <h3>Question {questionIndex + 1}/{quizData[role].length}</h3>
             <p>{quizData[role][questionIndex].question}</p>
+
             <div className="options">
               {quizData[role][questionIndex].options.map((option, index) => (
                 <button key={index} onClick={() => handleAnswerClick(option)}>
@@ -130,11 +140,16 @@ const QuizGame = () => {
                 </button>
               ))}
             </div>
+
+            {/* Feedback shows immediately after an answer is chosen */}
             {feedback && <p className="feedback">{feedback}</p>}
+
             <button onClick={handleNextQuestion} className="next-btn">Next Question</button>
           </div>
         )}
       </div>
+
+      {/* Footer */}
       <div className="footer-wrapper">
         <footer className="home-footer">
           <p>&copy; 2025 CareConnect. All rights reserved.</p>

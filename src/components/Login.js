@@ -1,38 +1,53 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom"; // ✅ Link added here
+import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 
+// Login page where users can access their CareConnect account
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+  // React hooks to manage form state
+  const [email, setEmail] = useState("");           // Tracks the entered email
+  const [password, setPassword] = useState("");     // Tracks the entered password
+  const [error, setError] = useState("");           // Stores error messages
+  const [loading, setLoading] = useState(false);    // Displays loading status during API call
+  const navigate = useNavigate();                   // Used for redirecting the user post-login
 
-  // Automatically switch between localhost and deployed backend
+  // Define the base URL depending on whether the app is running locally or deployed
   const API_BASE_URL =
     window.location.hostname === "localhost"
-      ? "http://localhost:5000"
-      : "https://careconnect-backend-k0t4.onrender.com";
+      ? "http://localhost:3001"                     // Local development server
+      : "https://careconnect-backend-k0t4.onrender.com"; // Deployed backend on Render
 
+  // Handles login submission
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault();           // Prevents default form submission
+    setError("");                 // Clear any previous error messages
+    setLoading(true);            // Show loading indicator
 
     try {
+      // Send login credentials to backend
       const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
         email,
         password,
       });
 
+      // Destructure name and role from response data
       const { name, role } = response.data;
 
+      // Store user info in localStorage (used across pages for dynamic rendering)
       localStorage.setItem("name", name);
       localStorage.setItem("role", role);
 
+      // Navigate to the homepage on successful login
       navigate("/home");
     } catch (err) {
+      // If login fails, show appropriate error
       console.error("Login failed:", err.response?.data || err.message);
-      setError("Invalid login credentials.");
+      setError(
+        err.response?.data?.message || "Invalid login credentials. Please try again."
+      );
+    } finally {
+      setLoading(false); // Hide loading indicator regardless of outcome
     }
   };
 
@@ -45,15 +60,17 @@ const Login = () => {
             Login to your account to access resources and support
           </p>
 
+          {/* Show error message if login fails */}
           {error && <div className="alert-danger">{error}</div>}
 
+          {/* Login form */}
           <form onSubmit={handleLogin} className="login-form">
             <input
               type="email"
               className="form-control"
               placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)} // Update email state
               required
             />
             <input
@@ -61,15 +78,17 @@ const Login = () => {
               className="form-control"
               placeholder="Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)} // Update password state
               required
             />
-            <button type="submit" className="primary-btn">Log In</button>
+            <button type="submit" className="primary-btn" disabled={loading}>
+              {loading ? "Logging in..." : "Log In"}  {/* Show loading state */}
+            </button>
           </form>
 
+          {/* Link to sign-up page for new users */}
           <p className="signup-link">
-            Don't have an account?{" "}
-            <Link to="/signup">Sign up here</Link> {/* ✅ Fixed */}
+            Don't have an account? <Link to="/signup">Sign up here</Link>
           </p>
         </div>
       </div>

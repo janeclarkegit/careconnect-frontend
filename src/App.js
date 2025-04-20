@@ -26,8 +26,8 @@ function App() {
         <Route path="/gpt" element={<Gpt />} />
         <Route path="/resources" element={<Resources />} />
         <Route path="/events" element={<Events />} />
-        <Route path="/journal" element={<Journal />} />  {/* Corrected Journal route */}
-        <Route path="/game" element={<Game />} />  {/* Memory Game route */}
+        <Route path="/journal" element={<Journal />} />  
+        <Route path="/game" element={<Game />} /> 
       </Routes>
     </Router>
   );

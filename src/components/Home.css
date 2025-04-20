@@ -93,7 +93,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* How It Works Section */
+
 .home-how-it-works {
   text-align: center;
   padding: 60px 20px;
@@ -140,7 +140,7 @@
   color: #333;
 }
 
-/* Features Section */
+
 .home-features {
   text-align: center;
   padding: 60px 20px;
@@ -187,7 +187,7 @@
   color: #333;
 }
 
-/* Call to Action Section */
+
 .home-cta {
   text-align: center;
   padding: 60px 20px;
@@ -207,7 +207,7 @@
   margin-bottom: 30px;
 }
 
-/* Sticky Footer */
+
 .home-footer {
   position: fixed;
   bottom: 0;

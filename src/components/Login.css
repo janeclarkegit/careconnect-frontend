@@ -1,4 +1,4 @@
-/* Full-page wrapper */
+
 .page-wrapper {
     min-height: 100vh;
     display: flex;
@@ -8,13 +8,13 @@
     padding: 20px;
 }
 
-/* Centering the login form */
+
 .login-container {
     width: 100%;
     max-width: 400px;
 }
 
-/* Login form box */
+
 .login-box {
     background: #fff;
     padding: 40px;
@@ -23,7 +23,7 @@
     text-align: center;
 }
 
-/* Welcome text */
+
 .welcome-text {
     font-size: 2rem;
     font-weight: bold;
@@ -31,7 +31,7 @@
     margin-bottom: 10px;
 }
 
-/* Tagline */
+
 .tagline {
     font-size: 1.1rem;
     color: #555;
@@ -39,14 +39,14 @@
     font-style: italic;
 }
 
-/* Form styling */
+
 .login-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* Input fields */
+
 .form-control {
     width: 100%;
     padding: 12px;
@@ -63,7 +63,6 @@
     box-shadow: 0 0 8px rgba(26, 188, 156, 0.4);
 }
 
-/* Login button */
 .primary-btn {
     background-color: #16a085;
     color: #fff;
@@ -79,7 +78,7 @@
     background-color: #149174;
 }
 
-/* Error message styling */
+
 .alert-danger {
     background-color: #e74c3c;
     color: white;
@@ -88,7 +87,7 @@
     margin: 10px 0;
 }
 
-/* Sign-up link */
+
 .signup-link {
     margin-top: 15px;
     font-size: 0.9rem;

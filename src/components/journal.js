@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Sentiment from "sentiment";
-import { FaTrash } from "react-icons/fa"; // Import bin icon
+import { FaTrash } from "react-icons/fa"; 
 import "./journal.css";
 import Navbar from "./Navbar";
 
 const Journal = () => {
   const sentiment = new Sentiment();
 
-  // Load journal entries from localStorage on initial render
   const loadEntries = () => {
     const savedEntries = localStorage.getItem("journalEntries");
     return savedEntries ? JSON.parse(savedEntries) : [];
@@ -23,7 +22,7 @@ const Journal = () => {
     localStorage.setItem("journalEntries", JSON.stringify(journalEntries));
   }, [journalEntries]);
 
-  // Analyze sentiment and return an emoji based on the score
+  // Analyse sentiment and return an emoji based on the score
   const analyzeSentiment = (text) => {
     const result = sentiment.analyze(text);
     const score = result.score;
@@ -37,7 +36,7 @@ const Journal = () => {
     }
   };
 
-  // Handle form submission to save a new journal entry
+  //  form submission to save a new journal entry
   const handleSubmit = (e) => {
     e.preventDefault();
     if (date.trim() && feeling.trim() && entry.trim()) {
@@ -56,13 +55,13 @@ const Journal = () => {
     }
   };
 
-  // Handle reset (clearing all journal entries)
+  //  (clearing all journal entries)
   const handleReset = () => {
     setJournalEntries([]);
     localStorage.removeItem("journalEntries");
   };
 
-  // Handle deleting an individual entry
+  //  deleting an individual entry
   const handleDeleteEntry = (index) => {
     const updatedEntries = [...journalEntries];
     updatedEntries.splice(index, 1);
